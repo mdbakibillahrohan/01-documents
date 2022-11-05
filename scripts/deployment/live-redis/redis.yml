@@ -1,0 +1,23 @@
+version: '3.5'
+
+services:
+
+    redis_db:
+        image: my_redis:6.2.7-alpine
+        build:
+            context: .
+            dockerfile: ./redis.Dockerfile
+        ports:
+            - "6380:6379"
+        command: redis-server --bind 0.0.0.0 --save 20 1 --loglevel warning --appendonly yes --maxmemory 1024mb --maxmemory-policy allkeys-lru --requirepass 331cca658ad563976d1a6ac08391e7de199785cd44fac3c6dac6c43c8760996c
+        networks:
+            - sms_net
+        volumes:
+            - /data/redis:/data
+
+networks:
+    sms_net:
+        external: true
+
+# docker-compose -f redis.yml up
+# docker-compose -f redis.yml down
