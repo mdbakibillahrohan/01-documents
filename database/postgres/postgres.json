@@ -56,7 +56,7 @@
                         ],
                         [
                             "M002",
-                            "[{\"oid\":\"Cash\",\"name\":\"Cash\",\"sortOrder\":1},{\"oid\":\"Bank\",\"name\":\"Bank\",\"sortOrder\":2}]"
+                            "[{\"oid\":\"Cash\",\"name\":\"Cash\",\"sort_order\":1},{\"oid\":\"Bank\",\"name\":\"Bank\",\"sort_order\":2}]"
                         ]
                     ],
                     "partition": "-",
@@ -1651,6 +1651,20 @@
                         },
                         {
                             "sortOrder": 4,
+                            "columnName": "status",
+                            "type": "varchar",
+                            "precision": "16",
+                            "scale": "-",
+                            "required": "Yes",
+                            "default": "Active",
+                            "unique": "-",
+                            "composite": "-",
+                            "ordinal": "-",
+                            "partition": "-",
+                            "notes": ""
+                        },
+                        {
+                            "sortOrder": 5,
                             "columnName": "company_oid",
                             "type": "varchar",
                             "precision": "128",
@@ -1664,7 +1678,7 @@
                             "notes": ""
                         },
                         {
-                            "sortOrder": 5,
+                            "sortOrder": 6,
                             "columnName": "created_on",
                             "type": "timestamp",
                             "precision": "-",
@@ -1678,7 +1692,7 @@
                             "notes": "When was created"
                         },
                         {
-                            "sortOrder": 6,
+                            "sortOrder": 7,
                             "columnName": "created_by",
                             "type": "varchar",
                             "precision": "64",
@@ -1701,11 +1715,18 @@
                             "sortOrder": 1
                         },
                         {
+                            "columnName": "status",
+                            "constraintType": "Check",
+                            "check": "Active, Inactive",
+                            "reference": "-",
+                            "sortOrder": 4
+                        },
+                        {
                             "columnName": "company_oid",
                             "constraintType": "Foreign",
                             "check": "-",
                             "reference": "company.oid",
-                            "sortOrder": 4
+                            "sortOrder": 5
                         }
                     ],
                     "data": [
@@ -1795,6 +1816,20 @@
                         },
                         {
                             "sortOrder": 3,
+                            "columnName": "status",
+                            "type": "varchar",
+                            "precision": "16",
+                            "scale": "-",
+                            "required": "Yes",
+                            "default": "Active",
+                            "unique": "-",
+                            "composite": "-",
+                            "ordinal": "-",
+                            "partition": "-",
+                            "notes": ""
+                        },
+                        {
+                            "sortOrder": 4,
                             "columnName": "sort_order",
                             "type": "numeric",
                             "precision": "5",
@@ -1808,7 +1843,7 @@
                             "notes": ""
                         },
                         {
-                            "sortOrder": 4,
+                            "sortOrder": 5,
                             "columnName": "company_oid",
                             "type": "varchar",
                             "precision": "128",
@@ -1822,7 +1857,7 @@
                             "notes": ""
                         },
                         {
-                            "sortOrder": 5,
+                            "sortOrder": 6,
                             "columnName": "created_on",
                             "type": "timestamp",
                             "precision": "-",
@@ -1836,7 +1871,7 @@
                             "notes": "When was created"
                         },
                         {
-                            "sortOrder": 6,
+                            "sortOrder": 7,
                             "columnName": "created_by",
                             "type": "varchar",
                             "precision": "64",
@@ -1859,11 +1894,18 @@
                             "sortOrder": 1
                         },
                         {
+                            "columnName": "status",
+                            "constraintType": "Check",
+                            "check": "Active, Inactive",
+                            "reference": "-",
+                            "sortOrder": 3
+                        },
+                        {
                             "columnName": "company_oid",
                             "constraintType": "Foreign",
                             "check": "-",
                             "reference": "company.oid",
-                            "sortOrder": 4
+                            "sortOrder": 5
                         }
                     ],
                     "data": [
