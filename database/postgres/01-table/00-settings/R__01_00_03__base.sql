@@ -90,6 +90,7 @@ Log for every request to (and response from) Antarika
 oid                            : Surrogate primary key
 name                           : 
 sort_order                     : 
+status                         : 
 company_oid                    : 
 created_on                     : When was created
 created_by                     : Who was created
@@ -99,10 +100,12 @@ create table                   department
 oid                            varchar(128)                                                not null,
 name                           varchar(128)                                                not null,
 sort_order                     numeric(5,0)                                                not null,
+status                         varchar(16)                                                 not null       default 'Active',
 company_oid                    varchar(128)                                                not null,
 created_on                     timestamp                                                   not null       default current_timestamp,
 created_by                     varchar(64)                                                 not null       default 'System',
 constraint                     pk_department                                               primary key    (oid),
+constraint                     ck_status_department                                        check          (status = 'Active' or status = 'Inactive'),
 constraint                     fk_company_oid_department                                   foreign key    (company_oid)
                                                                                            references     company(oid)
 );
@@ -111,6 +114,7 @@ constraint                     fk_company_oid_department                        
 Log for every request to (and response from) Antarika
 oid                            : Surrogate primary key
 name                           : 
+status                         : 
 sort_order                     : 
 company_oid                    : 
 created_on                     : When was created
@@ -120,11 +124,13 @@ create table                   designation
 (
 oid                            varchar(128)                                                not null,
 name                           varchar(128)                                                not null,
+status                         varchar(16)                                                 not null       default 'Active',
 sort_order                     numeric(5,0)                                                not null,
 company_oid                    varchar(128)                                                not null,
 created_on                     timestamp                                                   not null       default current_timestamp,
 created_by                     varchar(64)                                                 not null       default 'System',
 constraint                     pk_designation                                              primary key    (oid),
+constraint                     ck_status_designation                                       check          (status = 'Active' or status = 'Inactive'),
 constraint                     fk_company_oid_designation                                  foreign key    (company_oid)
                                                                                            references     company(oid)
 );
