@@ -10555,6 +10555,20 @@
                         },
                         {
                             "sortOrder": 5,
+                            "columnName": "is_default",
+                            "type": "varchar",
+                            "precision": "16",
+                            "scale": "-",
+                            "required": "Yes",
+                            "default": "No",
+                            "unique": "-",
+                            "composite": "-",
+                            "ordinal": "-",
+                            "partition": "-",
+                            "notes": ""
+                        },
+                        {
+                            "sortOrder": 6,
                             "columnName": "company_oid",
                             "type": "varchar",
                             "precision": "128",
@@ -10584,11 +10598,18 @@
                             "sortOrder": 4
                         },
                         {
+                            "columnName": "is_default",
+                            "constraintType": "Check",
+                            "check": "Yes, No",
+                            "reference": "-",
+                            "sortOrder": 5
+                        },
+                        {
                             "columnName": "company_oid",
                             "constraintType": "Foreign",
                             "check": "-",
                             "reference": "company.oid",
-                            "sortOrder": 5
+                            "sortOrder": 6
                         }
                     ],
                     "data": [
@@ -10597,14 +10618,16 @@
                             "name",
                             "address",
                             "status",
-                            "company_oid"
+                            "company_oid",
+                            "is_default"
                         ],
                         [
                             "W-101",
                             "Warehouse-01",
                             "Dhaka",
                             "Active",
-                            "C-DEMO"
+                            "C-DEMO",
+                            "Yes"
                         ]
                     ],
                     "partition": "-",
@@ -11519,7 +11542,7 @@
                             "admin",
                             "admin",
                             "admin",
-                            "[{\"path\":\"/dashboard\",\"icon\":\"home\",\"text\":\"Dashboard\"},{\"path\":\"/people/people-list\",\"icon\":\"usergroup-add\",\"text\":\"People\"},{\"path\":\"/bank\",\"icon\":\"bank\",\"text\":\"Bank\",\"submenus\":[{\"path\":\"/bank/bank-account-list\",\"icon\":\"account-book\",\"text\":\"Bank Account\"},{\"path\":\"/bank/bank-transaction\",\"icon\":\"transaction\",\"text\":\"Bank Transaction\"}]},{\"path\":\"/inventory\",\"icon\":\"bar-chart\",\"text\":\"Inventory\",\"submenus\":[{\"path\":\"/inventory/warehouses-list\",\"icon\":\"shop\",\"text\":\"Warehouse\"},{\"path\":\"/inventory/product-unit-list\",\"icon\":\"calculator\",\"text\":\"Product Unit\"},{\"path\":\"/inventory/product-categories-list\",\"icon\":\"check-square\",\"text\":\"Product Category\"},{\"path\":\"/inventory/products\",\"icon\":\"project\",\"text\":\"Product\"}]},{\"path\":\"/accounting\",\"icon\":\"calculator\",\"text\":\"Accounting\",\"submenus\":[{\"path\":\"/accounting/chart-of-accounts\",\"icon\":\"line-chart\",\"text\":\"Chart of Account\"},{\"path\":\"/accounting/ledger-subgroup\",\"icon\":\"block\",\"text\":\"Ledger Subgroup\"},{\"path\":\"/accounting/ledger-setting\",\"icon\":\"setting\",\"text\":\"Ledger Setting\"},{\"path\":\"/accounting/manual-journal\",\"icon\":\"solution\",\"text\":\"Manual Journal\"},{\"path\":\"/accounting/financial-period\",\"icon\":\"field-time\",\"text\":\"Financial Period\"}]},{\"path\":\"/expense\",\"icon\":\"dollar\",\"text\":\"Expense\",\"submenus\":[{\"path\":\"/expense/expense-list\",\"icon\":\"dollar\",\"text\":\"Expense List\"}]},{\"path\":\"/cash-book\",\"icon\":\"book\",\"text\":\"Cashbook\",\"submenus\":[{\"path\":\"/cash-book/cash-book-list\",\"icon\":\"book\",\"text\":\"Cashbook List\"}]},{\"path\":\"/payment\",\"icon\":\"dollar\",\"text\":\"Payment\",\"submenus\":[{\"path\":\"/payment/payment-made\",\"icon\":\"import\",\"text\":\"Payment Made\"},{\"path\":\"/payment/payment-receive\",\"icon\":\"export\",\"text\":\"Payment Receive\"}]},{\"path\":\"/credit\",\"icon\":\"fund\",\"text\":\"Credit\",\"submenus\":[{\"path\":\"/credit/credit-note\",\"icon\":\"form\",\"text\":\"Credit Note\"},{\"path\":\"/credit/vendor-credit\",\"icon\":\"account-book\",\"text\":\"Vendor Credit\"}]},{\"path\":\"/refund\",\"icon\":\"left-square\",\"text\":\"Refund\",\"submenus\":[{\"path\":\"/refund/refund-credit-note\",\"icon\":\"rollback\",\"text\":\"Credit Note Refund\"},{\"path\":\"/refund/vendor-credit-refund\",\"icon\":\"rollback\",\"text\":\"Vendor Credit Refund\"}]},{\"path\":\"/adjust\",\"icon\":\"retweet\",\"text\":\"Adjust\",\"submenus\":[{\"path\":\"/adjust/credit-note-adjust\",\"icon\":\"box-plot\",\"text\":\"Credit Note Adjust\"},{\"path\":\"/adjust/vendor-credit-adjust\",\"icon\":\"box-plot\",\"text\":\"Vendor Credit Adjust\"}]},{\"path\":\"/invoice\",\"icon\":\"container\",\"text\":\"Invoice\"},{\"path\":\"/activity\",\"icon\":\"alert\",\"text\":\"Activity\"},{\"path\":\"/report/report\",\"icon\":\"file-text\",\"text\":\"Report\"}]",
+                            "[{\"path\":\"/dashboard\",\"icon\":\"home\",\"text\":\"Dashboard\"},{\"path\":\"/vendor\",\"icon\":\"user-switch\",\"text\":\"Vendor\"},{\"path\":\"/people/people-list\",\"icon\":\"usergroup-add\",\"text\":\"Customer\",\"submenus\":[{\"path\":\"/bank/bank-account-list\",\"icon\":\"usergroup-add\",\"text\":\"Customer\"},{\"path\":\"/bank/bank-transaction\",\"icon\":\"sliders\",\"text\":\"Passport\"}]},{\"path\":\"/people/people-list\",\"icon\":\"box-plot\",\"text\":\"Ticket\",\"submenus\":[{\"path\":\"ticket/draft\",\"icon\":\"cloud-sync\",\"text\":\"Draft\"},{\"path\":\"ticket/list\",\"icon\":\"ordered-list\",\"text\":\"Tickets\"},{\"path\":\"ticket/modification\",\"icon\":\"edit\",\"text\":\"Modification\"}]},{\"path\":\"/bank\",\"icon\":\"bank\",\"text\":\"Bank\",\"submenus\":[{\"path\":\"/bank/bank-account-list\",\"icon\":\"account-book\",\"text\":\"Bank Account\"},{\"path\":\"/bank/bank-transaction\",\"icon\":\"transaction\",\"text\":\"Bank Transaction\"}]},{\"path\":\"/inventory\",\"icon\":\"bar-chart\",\"text\":\"Inventory\",\"submenus\":[{\"path\":\"/inventory/warehouse\",\"icon\":\"shop\",\"text\":\"Warehouse\"},{\"path\":\"/inventory/product-unit\",\"icon\":\"calculator\",\"text\":\"Product Unit\"},{\"path\":\"/inventory/product-category\",\"icon\":\"check-square\",\"text\":\"Product Category\"},{\"path\":\"/inventory/product\",\"icon\":\"project\",\"text\":\"Product\"}]},{\"path\":\"/accounting\",\"icon\":\"calculator\",\"text\":\"Accounting\",\"submenus\":[{\"path\":\"/accounting/chart-of-accounts\",\"icon\":\"line-chart\",\"text\":\"Chart of Account\"},{\"path\":\"/accounting/ledger-subgroup\",\"icon\":\"block\",\"text\":\"Ledger Subgroup\"},{\"path\":\"/accounting/ledger-setting\",\"icon\":\"setting\",\"text\":\"Ledger Setting\"},{\"path\":\"/accounting/manual-journal\",\"icon\":\"solution\",\"text\":\"Manual Journal\"},{\"path\":\"/accounting/financial-period\",\"icon\":\"field-time\",\"text\":\"Financial Period\"}]},{\"path\":\"/expense\",\"icon\":\"dollar\",\"text\":\"Expense\"},{\"path\":\"/payment\",\"icon\":\"dollar\",\"text\":\"Payment\",\"submenus\":[{\"path\":\"/payment/payment-made\",\"icon\":\"import\",\"text\":\"Payment Made\"},{\"path\":\"/payment/payment-receive\",\"icon\":\"export\",\"text\":\"Payment Receive\"}]},{\"path\":\"/credit\",\"icon\":\"fund\",\"text\":\"Credit\",\"submenus\":[{\"path\":\"/credit/credit-note\",\"icon\":\"form\",\"text\":\"Credit Note\"},{\"path\":\"/credit/vendor-credit\",\"icon\":\"account-book\",\"text\":\"Vendor Credit\"}]},{\"path\":\"\\\"/settings\\\"\",\"icon\":\"home\",\"text\":\"Office\",\"submenus\":[{\"path\":\"settings/department\",\"icon\":\"dot-chart\",\"text\":\"Department\"},{\"path\":\"/settings/designation\",\"icon\":\"rise\",\"text\":\"Designation\"},{\"path\":\"/settings/employee\",\"icon\":\"user\",\"text\":\"Employees\"}]},{\"path\":\"/credit\",\"icon\":\"setting\",\"text\":\"Settings\",\"submenus\":[{\"path\":\"/credit/credit-note\",\"icon\":\"user\",\"text\":\"User Profile\"},{\"path\":\"/credit/credit-note\",\"icon\":\"rise\",\"text\":\"Company Profile\"}]},{\"path\":\"/refund\",\"icon\":\"left-square\",\"text\":\"Refund\",\"submenus\":[{\"path\":\"/refund/refund-credit-note\",\"icon\":\"rollback\",\"text\":\"Credit Note Refund\"},{\"path\":\"/refund/vendor-credit-refund\",\"icon\":\"rollback\",\"text\":\"Vendor Credit Refund\"}]},{\"path\":\"/adjust\",\"icon\":\"retweet\",\"text\":\"Adjust\",\"submenus\":[{\"path\":\"/adjust/credit-note-adjust\",\"icon\":\"box-plot\",\"text\":\"Credit Note Adjust\"},{\"path\":\"/adjust/vendor-credit-adjust\",\"icon\":\"box-plot\",\"text\":\"Vendor Credit Adjust\"}]},{\"path\":\"/invoice\",\"icon\":\"container\",\"text\":\"Invoice\"},{\"path\":\"/calculator\",\"icon\":\"calculator\",\"text\":\"Calculator\"},{\"path\":\"/activity\",\"icon\":\"alert\",\"text\":\"Activity\"},{\"path\":\"/report\",\"icon\":\"file-text\",\"text\":\"Report\"},{\"path\":\"/guideline\",\"icon\":\"book\",\"text\":\"Guideline\"}]",
                             "[]",
                             "Active"
                         ],

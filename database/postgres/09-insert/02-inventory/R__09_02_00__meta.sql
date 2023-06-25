@@ -1,5 +1,5 @@
 -- warehouse
-insert into warehouse (oid, name, address, status, company_oid) values ('W-101','Warehouse-01','Dhaka','Active','C-DEMO');
+insert into warehouse (oid, name, address, status, company_oid, is_default) values ('W-101','Warehouse-01','Dhaka','Active','C-DEMO','Yes');
 commit;
 
 -- product_unit

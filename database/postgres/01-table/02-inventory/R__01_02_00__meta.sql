@@ -4,6 +4,7 @@ oid                            : Surrogate primary key
 name                           : 
 address                        : 
 status                         : 
+is_default                     : 
 company_oid                    : 
 */
 create table                   warehouse
@@ -12,9 +13,11 @@ oid                            varchar(128)                                     
 name                           varchar(128)                                                not null,
 address                        text,
 status                         varchar(16)                                                 not null       default 'Active',
+is_default                     varchar(16)                                                 not null       default 'No',
 company_oid                    varchar(128)                                                not null,
 constraint                     pk_warehouse                                                primary key    (oid),
 constraint                     ck_status_warehouse                                         check          (status = 'Active' or status = 'Inactive'),
+constraint                     ck_is_default_warehouse                                     check          (is_default = 'Yes' or is_default = 'No'),
 constraint                     fk_company_oid_warehouse                                    foreign key    (company_oid)
                                                                                            references     company(oid)
 );

@@ -33,5 +33,26 @@ RETURNS varchar(128) AS $save_update_warehouse$
     END;
 $save_update_warehouse$ LANGUAGE plpgsql;
 
--- select "public".save_update_warehouse('{"name":"Rohan Industry Limited", "address":"335/5 Ease Nakhalpara", "status":"Active"}');
+
+DROP FUNCTION IF EXISTS "public".change_default_warehouse(p_json json);
+CREATE OR REPLACE FUNCTION "public".change_default_warehouse(p_json json)
+RETURNS varchar(128) AS $change_default_warehouse$
+    DECLARE
+        v_company                                   json;
+        v_oid                                       varchar(128);
+    BEGIN
+        select get_company_by_login_id(p_json->>'created_by') into v_company;
+        v_oid := p_json->>'oid';
+
+        update warehouse set is_default = 'No' where company_oid = v_company->>'oid';
+        update warehouse set is_default = 'Yes' where oid = v_oid and company_oid = v_company->>'oid';
+
+		insert into activity_log (description, reference_id, reference_name, created_by, company_oid)
+		values ('Changed warehouse as default', v_oid, 'Warehouse', v_company->>'login_id', v_company->>'oid');
+        return v_oid;
+    END;
+$change_default_warehouse$ LANGUAGE plpgsql;
+
+-- select "public".change_default_warehouse('{"oid":"ZdBGNj","created_by":"admin"}');
+-- select "public".save_update_warehouse('{"name":"Warehouse-2", "address":"335/5 Ease Nakhalpara", "status":"Active", "created_by":"admin"}');
 -- PGPASSWORD='gds' psql -U gds -d gds -f ./R__05_02_00__warehouse.sql
