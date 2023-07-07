@@ -48,11 +48,11 @@ RETURNS varchar(128) AS $save_update_ledger$
             select uuid() into v_oid;
             select get_ledger_code(p_json->>'ledger_subgroup_oid', v_company->>'oid') into v_timestamp;
             insert into ledger (oid, ledger_code, ledger_name, mnemonic,
-                ledger_type, balance_sheet_item, initial_balance, ledger_balance, ledger_subgroup_oid, company_oid, created_by)
+                ledger_type, balance_sheet_item, initial_balance, ledger_balance, ledger_subgroup_oid, status, company_oid, created_by)
             values (v_oid, v_timestamp, p_json->>'ledger_name', p_json->>'mnemonic', v_data.ledger_subgroup_type,
                 v_data.balance_sheet_item, coalesce((p_json->>'initial_balance')::float, 0), 
                 coalesce((p_json->>'initial_balance')::float, 0),
-                p_json->>'ledger_subgroup_oid', v_company->>'oid', v_company->>'login_id');
+                p_json->>'ledger_subgroup_oid', p_json->>'status', v_company->>'oid', v_company->>'login_id');
         else
             v_action_type := 'Update';
             v_oid := p_json->>'oid';
@@ -61,7 +61,7 @@ RETURNS varchar(128) AS $save_update_ledger$
                 initial_balance = coalesce((p_json->>'initial_balance')::float, 0), 
                 ledger_balance = coalesce((p_json->>'initial_balance')::float, 0),
                 ledger_subgroup_oid =  p_json->>'ledger_subgroup_oid', ledger_type = v_data.ledger_subgroup_type,
-                balance_sheet_item = v_data.balance_sheet_item, company_oid = v_company->>'oid',
+                balance_sheet_item = v_data.balance_sheet_item, status = p_json->>'status', company_oid = v_company->>'oid',
                 edited_by = v_company->>'login_id', edited_on = clock_timestamp()
             where oid = v_oid;
         end if;

@@ -46,23 +46,23 @@ RETURNS varchar(128) AS $save_update_subledger$
             v_action_type := 'Save';
             select uuid() into v_oid;
             select get_subledger_code(p_json->>'ledger_oid', v_company->>'oid') into v_timestamp;
-            insert into subledger (oid,  subledger_code, subledger_name, 
+            insert into subledger (oid,  subledger_code, ledger_key, subledger_name, 
                 subledger_type, balance_sheet_item, initial_balance, subledger_balance, ledger_oid, 
-                company_oid, created_by)
-            values (v_oid, v_timestamp, p_json->>'subledger_name', v_data.ledger_type,
+                status, company_oid, created_by)
+            values (v_oid, v_timestamp, v_data.ledger_key, p_json->>'subledger_name', v_data.ledger_type,
                 v_data.balance_sheet_item, coalesce((p_json->>'initial_balance')::float, 0), 
                 coalesce((p_json->>'initial_balance')::float, 0),
-                p_json->>'ledger_oid', v_company->>'oid', v_company->>'login_id');
+                p_json->>'ledger_oid', p_json->>'status', v_company->>'oid', v_company->>'login_id');
         else
             v_action_type := 'Update';
             v_oid := p_json->>'oid';
             select subledger_code into v_timestamp from subledger where oid = v_oid;
-            update subledger set subledger_name = p_json->>'subledger_name',
+            update subledger set subledger_name = p_json->>'subledger_name', ledger_key = v_data.ledger_key,
                 initial_balance = coalesce((p_json->>'initial_balance')::float, 0), 
                 subledger_balance = coalesce((p_json->>'initial_balance')::float, 0),
                 ledger_oid =  p_json->>'ledger_oid', subledger_type = v_data.ledger_type,
-                balance_sheet_item = v_data.balance_sheet_item, company_oid = v_company->>'oid',
-                edited_by = v_company->>'login_id', edited_on = clock_timestamp()
+                balance_sheet_item = v_data.balance_sheet_item, status = p_json->>'status',
+                company_oid = v_company->>'oid', edited_by = v_company->>'login_id', edited_on = clock_timestamp()
             where oid = v_oid;
         end if;
 
