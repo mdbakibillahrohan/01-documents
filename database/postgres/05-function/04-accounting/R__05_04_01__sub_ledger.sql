@@ -37,7 +37,9 @@ RETURNS varchar(128) AS $save_update_subledger$
         v_description                               text;
     BEGIN
         select get_company_by_login_id(p_json->>'created_by') into v_company;
-        select * into v_data from ledger where oid = p_json->>'ledger_oid' and company_oid = v_company->>'oid';
+        select * into v_data from ledger l
+        left join ledger_setting ls on ls.ledger_oid = l.oid 
+        where l.oid = p_json->>'ledger_oid' and l.company_oid = v_company->>'oid';
         if v_data.oid is null then
             return null;
         end if;
