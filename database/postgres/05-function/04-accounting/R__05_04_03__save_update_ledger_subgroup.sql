@@ -1,11 +1,11 @@
 set client_min_messages = 'warning';
 
-DROP FUNCTION IF EXISTS "public".get_ledger_code(p_table_name varchar(128), p_ledger_oid varchar(128), p_company_oid varchar(128));
-CREATE OR REPLACE FUNCTION "public".get_ledger_code(p_table_name varchar(128),p_ledger_oid varchar(128), p_company_oid varchar(128))
+DROP FUNCTION IF EXISTS "public".get_ledger_subgroup_code(p_ledger_group_oid varchar(128), p_company_oid varchar(128));
+CREATE OR REPLACE FUNCTION "public".get_ledger_subgroup_code(p_ledger_group_oid varchar(128), p_company_oid varchar(128))
 RETURNS varchar(4) AS $get_ledger_code$
 	DECLARE
         v_data                                      record;
-  		v_ledger_code 				        varchar(4);
+  		v_ledger_subgroup_code 				        varchar(4);
     BEGIN
         
     END;
