@@ -8,7 +8,6 @@ RETURNS varchar(128) AS $save_update_ledger_setting$
         v_action_type                           varchar(64);
         v_oid                                   varchar(128);
         v_description                           text;
-        v_total_count                           int;
         v_ledger                                record;
     BEGIN
         select get_company_by_login_id(p_json->>'created_by') into v_company;
