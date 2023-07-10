@@ -3,7 +3,7 @@ set client_min_messages = 'warning';
 DROP FUNCTION IF EXISTS "public".save_update_ledger_setting(p_json json);
 CREATE OR REPLACE FUNCTION "public".save_update_ledger_setting(p_json json)
 RETURNS varchar(128) AS $save_update_ledger_setting$
-    DECLARE 
+    DECLARE
         v_company                               json;
         v_action_type                           varchar(64);
         v_oid                                   varchar(128);
@@ -16,17 +16,19 @@ RETURNS varchar(128) AS $save_update_ledger_setting$
         if length(coalesce(p_json->>'oid', '')) = 0 then
             v_action_type := 'save';
             select get_transaction_id(v_company->>'oid', 'ledger_setting') into v_oid;
-            insert into ledger_setting (oid, ledger_key, ledger_name, ledger_code, ledger_oid, company_oid) 
-            values (v_oid, p_json->>'ledger_key', v_ledger.ledger_name, v_ledger.ledger_code, p_json->>'ledger_oid', v_company->>'oid' );
+            insert into ledger_setting (oid, ledger_key, ledger_name, ledger_code, ledger_oid, company_oid)
+            values (v_oid, p_json->>'ledger_key', v_ledger.ledger_name,
+            v_ledger.ledger_code, p_json->>'ledger_oid', v_company->>'oid' );
         else
             v_action_type := 'update';
             v_oid := p_json->>'oid';
-            update ledger_setting set ledger_key = p_json->>'ledger_key', ledger_name = v_ledger.ledger_name, ledger_code = v_ledger.ledger_code, ledger_oid = p_json->>'ledger_oid'
+            update ledger_setting set ledger_key = p_json->>'ledger_key', ledger_name = v_ledger.ledger_name,
+            ledger_code = v_ledger.ledger_code, ledger_oid = p_json->>'ledger_oid'
             where oid = p_json->>'oid' and company_oid = v_company->>'oid';
         end if;
 
         -- ledger setting save/update by admin
-        v_description := concat(v_action_type, 'ledger_setting');
+        v_description := concat('Ledger setting ', v_action_type, ' by ', v_company->>'login_id');
 
         insert into activity_log (description, reference_id, reference_name, created_by, company_oid)
         values (v_description, v_oid, 'ledger_setting', v_company->>'login_id', v_company->>'oid');
