@@ -22,11 +22,11 @@ RETURNS varchar(128) AS $save_update_department$
             v_action_type := 'update';
             v_oid := p_json->>'oid';
             update department set name = p_json->>'name', status = p_json->>'status'
-            where oid = p_json->>'oid';
+            where oid = p_json->>'oid' and company_oid = v_company->>'oid';
         end if;
 
         -- Department save/update by admin
-        v_description := concat(v_action_type, ' department');
+        v_description := concat( p_json->>'name' , ' department', v_action_type, ' by ', v_company->>'login_id');
 
 		insert into activity_log (description, reference_id, reference_name, created_by, company_oid)
 		values (v_description, v_oid, 'Department', v_company->>'login_id', v_company->>'oid');
@@ -37,3 +37,4 @@ $save_update_department$ LANGUAGE plpgsql;
 -- select "public".save_update_department('{"name": "Software Division", "status": "Active", "created_by": "admin"}');
 -- select "public".save_update_department('{"oid": "jCS7VE", "name": "Service Division", "status": "Active", "created_by": "admin"}');
 -- PGPASSWORD='gds' psql -U gds -d gds -f ./R__05_00_04__department.sql
+-- PGPASSWORD='password' psql -U postgres -d gds -f ./R__05_00_04__department.sql

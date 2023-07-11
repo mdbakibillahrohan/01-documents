@@ -58,7 +58,7 @@ RETURNS varchar(128) AS $save_update_ledger_subgroup$
         end if;
 
         -- ledger subgroup as save/update by admin
-        v_description := concat('Ledger Subgroup ', p_json->>'ledger_subgroup_name', ' as ' v_action_type, ' by ', v_company->>'login_id');
+        v_description := concat('Ledger Subgroup ', p_json->>'ledger_subgroup_name', ' as ', v_action_type, ' by ', v_company->>'login_id');
         insert into activity_log (description, reference_id, reference_name, created_by, company_oid)
         values (v_description, v_oid, 'ledger_subgroup', v_company->>'login_id', v_company->>'oid');
         return v_oid;
