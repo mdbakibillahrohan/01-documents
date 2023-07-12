@@ -27,7 +27,7 @@ RETURNS varchar(128) AS $save_update_designation$
         end if;
 
         -- designation save/update by admin
-        v_description := concat(v_action_type, ' designation');
+        v_description := concat( p_json->>'name', ' designation', v_action_type, ' by ', v_company->>'login_id');
 
 		insert into activity_log (description, reference_id, reference_name, created_by, company_oid)
 		values (v_description, v_oid, 'designation', v_company->>'login_id', v_company->>'oid');
@@ -37,4 +37,6 @@ $save_update_designation$ LANGUAGE plpgsql;
 
 -- select "public".save_update_designation('{"name": "Software Division", "status": "Active", "created_by": "admin"}');
 -- select "public".save_update_designation('{"oid": "jCS7VE", "name": "Service Division", "status": "Active", "created_by": "admin"}');
--- PGPASSWORD='password' psql -U postgres -d new_gds -f ./R__05_00_05__designation.sql
+-- PGPASSWORD='gds' psql -U gds -d gds -f ./R__05_00_05__designation.sql
+
+-- PGPASSWORD='password' psql -U postgres -d gds -f ./R__05_00_05__designation.sql
