@@ -1,0 +1,508 @@
+{
+  "individualResults": [
+    {
+      "initialSchemaVersion": null,
+      "targetSchemaVersion": null,
+      "schemaName": "",
+      "migrations": [
+        {
+          "category": "Repeatable",
+          "version": "",
+          "description": "00 01 00  init",
+          "type": "SQL",
+          "filepath": "D:\\office_work\\01-document\\database\\postgres\\00-init\\R__00_01_00__init.sql",
+          "executionTime": 8
+        },
+        {
+          "category": "Repeatable",
+          "version": "",
+          "description": "01 00 00  meta",
+          "type": "SQL",
+          "filepath": "D:\\office_work\\01-document\\database\\postgres\\01-table\\00-settings\\R__01_00_00__meta.sql",
+          "executionTime": 30
+        },
+        {
+          "category": "Repeatable",
+          "version": "",
+          "description": "01 00 01  master",
+          "type": "SQL",
+          "filepath": "D:\\office_work\\01-document\\database\\postgres\\01-table\\00-settings\\R__01_00_01__master.sql",
+          "executionTime": 31
+        },
+        {
+          "category": "Repeatable",
+          "version": "",
+          "description": "01 00 02  location",
+          "type": "SQL",
+          "filepath": "D:\\office_work\\01-document\\database\\postgres\\01-table\\00-settings\\R__01_00_02__location.sql",
+          "executionTime": 70
+        },
+        {
+          "category": "Repeatable",
+          "version": "",
+          "description": "01 00 03  base",
+          "type": "SQL",
+          "filepath": "D:\\office_work\\01-document\\database\\postgres\\01-table\\00-settings\\R__01_00_03__base.sql",
+          "executionTime": 73
+        },
+        {
+          "category": "Repeatable",
+          "version": "",
+          "description": "01 00 04  passport",
+          "type": "SQL",
+          "filepath": "D:\\office_work\\01-document\\database\\postgres\\01-table\\00-settings\\R__01_00_04__passport.sql",
+          "executionTime": 51
+        },
+        {
+          "category": "Repeatable",
+          "version": "",
+          "description": "01 00 05  code",
+          "type": "SQL",
+          "filepath": "D:\\office_work\\01-document\\database\\postgres\\01-table\\00-settings\\R__01_00_05__code.sql",
+          "executionTime": 14
+        },
+        {
+          "category": "Repeatable",
+          "version": "",
+          "description": "01 00 06  history",
+          "type": "SQL",
+          "filepath": "D:\\office_work\\01-document\\database\\postgres\\01-table\\00-settings\\R__01_00_06__history.sql",
+          "executionTime": 13
+        },
+        {
+          "category": "Repeatable",
+          "version": "",
+          "description": "01 01 00  meta",
+          "type": "SQL",
+          "filepath": "D:\\office_work\\01-document\\database\\postgres\\01-table\\01-accounting\\R__01_01_00__meta.sql",
+          "executionTime": 52
+        },
+        {
+          "category": "Repeatable",
+          "version": "",
+          "description": "01 01 01  period",
+          "type": "SQL",
+          "filepath": "D:\\office_work\\01-document\\database\\postgres\\01-table\\01-accounting\\R__01_01_01__period.sql",
+          "executionTime": 15
+        },
+        {
+          "category": "Repeatable",
+          "version": "",
+          "description": "01 01 02  settings",
+          "type": "SQL",
+          "filepath": "D:\\office_work\\01-document\\database\\postgres\\01-table\\01-accounting\\R__01_01_02__settings.sql",
+          "executionTime": 12
+        },
+        {
+          "category": "Repeatable",
+          "version": "",
+          "description": "01 01 03  history",
+          "type": "SQL",
+          "filepath": "D:\\office_work\\01-document\\database\\postgres\\01-table\\01-accounting\\R__01_01_03__history.sql",
+          "executionTime": 82
+        },
+        {
+          "category": "Repeatable",
+          "version": "",
+          "description": "01 02 00  meta",
+          "type": "SQL",
+          "filepath": "D:\\office_work\\01-document\\database\\postgres\\01-table\\02-inventory\\R__01_02_00__meta.sql",
+          "executionTime": 26
+        },
+        {
+          "category": "Repeatable",
+          "version": "",
+          "description": "01 02 01  base",
+          "type": "SQL",
+          "filepath": "D:\\office_work\\01-document\\database\\postgres\\01-table\\02-inventory\\R__01_02_01__base.sql",
+          "executionTime": 17
+        },
+        {
+          "category": "Repeatable",
+          "version": "",
+          "description": "01 03 00  base",
+          "type": "SQL",
+          "filepath": "D:\\office_work\\01-document\\database\\postgres\\01-table\\03-security\\R__01_03_00__base.sql",
+          "executionTime": 31
+        },
+        {
+          "category": "Repeatable",
+          "version": "",
+          "description": "01 03 01  log",
+          "type": "SQL",
+          "filepath": "D:\\office_work\\01-document\\database\\postgres\\01-table\\03-security\\R__01_03_01__log.sql",
+          "executionTime": 30
+        },
+        {
+          "category": "Repeatable",
+          "version": "",
+          "description": "01 04 00  journal",
+          "type": "SQL",
+          "filepath": "D:\\office_work\\01-document\\database\\postgres\\01-table\\04-transaction\\R__01_04_00__journal.sql",
+          "executionTime": 28
+        },
+        {
+          "category": "Repeatable",
+          "version": "",
+          "description": "01 04 01  bank",
+          "type": "SQL",
+          "filepath": "D:\\office_work\\01-document\\database\\postgres\\01-table\\04-transaction\\R__01_04_01__bank.sql",
+          "executionTime": 81
+        },
+        {
+          "category": "Repeatable",
+          "version": "",
+          "description": "01 04 02  cash",
+          "type": "SQL",
+          "filepath": "D:\\office_work\\01-document\\database\\postgres\\01-table\\04-transaction\\R__01_04_02__cash.sql",
+          "executionTime": 21
+        },
+        {
+          "category": "Repeatable",
+          "version": "",
+          "description": "01 04 03  expense",
+          "type": "SQL",
+          "filepath": "D:\\office_work\\01-document\\database\\postgres\\01-table\\04-transaction\\R__01_04_03__expense.sql",
+          "executionTime": 32
+        },
+        {
+          "category": "Repeatable",
+          "version": "",
+          "description": "01 04 04  payment",
+          "type": "SQL",
+          "filepath": "D:\\office_work\\01-document\\database\\postgres\\01-table\\04-transaction\\R__01_04_04__payment.sql",
+          "executionTime": 45
+        },
+        {
+          "category": "Repeatable",
+          "version": "",
+          "description": "01 04 05  credit",
+          "type": "SQL",
+          "filepath": "D:\\office_work\\01-document\\database\\postgres\\01-table\\04-transaction\\R__01_04_05__credit.sql",
+          "executionTime": 38
+        },
+        {
+          "category": "Repeatable",
+          "version": "",
+          "description": "01 04 06  refund",
+          "type": "SQL",
+          "filepath": "D:\\office_work\\01-document\\database\\postgres\\01-table\\04-transaction\\R__01_04_06__refund.sql",
+          "executionTime": 51
+        },
+        {
+          "category": "Repeatable",
+          "version": "",
+          "description": "01 04 07  adustment",
+          "type": "SQL",
+          "filepath": "D:\\office_work\\01-document\\database\\postgres\\01-table\\04-transaction\\R__01_04_07__adustment.sql",
+          "executionTime": 32
+        },
+        {
+          "category": "Repeatable",
+          "version": "",
+          "description": "03 00 00  constraint",
+          "type": "SQL",
+          "filepath": "D:\\office_work\\01-document\\database\\postgres\\03-constraint\\R__03_00_00__constraint.sql",
+          "executionTime": 11
+        },
+        {
+          "category": "Repeatable",
+          "version": "",
+          "description": "04 00 00  index",
+          "type": "SQL",
+          "filepath": "D:\\office_work\\01-document\\database\\postgres\\04-index\\R__04_00_00__index.sql",
+          "executionTime": 6
+        },
+        {
+          "category": "Repeatable",
+          "version": "",
+          "description": "05 00 00  base",
+          "type": "SQL",
+          "filepath": "D:\\office_work\\01-document\\database\\postgres\\05-function\\00-settings\\R__05_00_00__base.sql",
+          "executionTime": 26
+        },
+        {
+          "category": "Repeatable",
+          "version": "",
+          "description": "05 00 01  calendar",
+          "type": "SQL",
+          "filepath": "D:\\office_work\\01-document\\database\\postgres\\05-function\\00-settings\\R__05_00_01__calendar.sql",
+          "executionTime": 7
+        },
+        {
+          "category": "Repeatable",
+          "version": "",
+          "description": "05 00 02  security",
+          "type": "SQL",
+          "filepath": "D:\\office_work\\01-document\\database\\postgres\\05-function\\00-settings\\R__05_00_02__security.sql",
+          "executionTime": 7
+        },
+        {
+          "category": "Repeatable",
+          "version": "",
+          "description": "05 00 03  transaction-id",
+          "type": "SQL",
+          "filepath": "D:\\office_work\\01-document\\database\\postgres\\05-function\\00-settings\\R__05_00_03__transaction-id.sql",
+          "executionTime": 12
+        },
+        {
+          "category": "Repeatable",
+          "version": "",
+          "description": "05 00 04  department",
+          "type": "SQL",
+          "filepath": "D:\\office_work\\01-document\\database\\postgres\\05-function\\00-settings\\R__05_00_04__department.sql",
+          "executionTime": 17
+        },
+        {
+          "category": "Repeatable",
+          "version": "",
+          "description": "05 00 05  designation",
+          "type": "SQL",
+          "filepath": "D:\\office_work\\01-document\\database\\postgres\\05-function\\00-settings\\R__05_00_05__designation.sql",
+          "executionTime": 9
+        },
+        {
+          "category": "Repeatable",
+          "version": "",
+          "description": "05 02 00  warehouse",
+          "type": "SQL",
+          "filepath": "D:\\office_work\\01-document\\database\\postgres\\05-function\\01-inventory\\R__05_02_00__warehouse.sql",
+          "executionTime": 11
+        },
+        {
+          "category": "Repeatable",
+          "version": "",
+          "description": "05 02 01  unit",
+          "type": "SQL",
+          "filepath": "D:\\office_work\\01-document\\database\\postgres\\05-function\\01-inventory\\R__05_02_01__unit.sql",
+          "executionTime": 7
+        },
+        {
+          "category": "Repeatable",
+          "version": "",
+          "description": "05 02 02  category",
+          "type": "SQL",
+          "filepath": "D:\\office_work\\01-document\\database\\postgres\\05-function\\01-inventory\\R__05_02_02__category.sql",
+          "executionTime": 5
+        },
+        {
+          "category": "Repeatable",
+          "version": "",
+          "description": "05 02 03  product",
+          "type": "SQL",
+          "filepath": "D:\\office_work\\01-document\\database\\postgres\\05-function\\01-inventory\\R__05_02_03__product.sql",
+          "executionTime": 6
+        },
+        {
+          "category": "Repeatable",
+          "version": "",
+          "description": "05 03 00  save update bank account",
+          "type": "SQL",
+          "filepath": "D:\\office_work\\01-document\\database\\postgres\\05-function\\03-bank-account\\R__05_03_00__save_update_bank_account.sql",
+          "executionTime": 6
+        },
+        {
+          "category": "Repeatable",
+          "version": "",
+          "description": "05 04 00  ledger",
+          "type": "SQL",
+          "filepath": "D:\\office_work\\01-document\\database\\postgres\\05-function\\04-accounting\\R__05_04_00__ledger.sql",
+          "executionTime": 9
+        },
+        {
+          "category": "Repeatable",
+          "version": "",
+          "description": "05 04 01  sub ledger",
+          "type": "SQL",
+          "filepath": "D:\\office_work\\01-document\\database\\postgres\\05-function\\04-accounting\\R__05_04_01__sub_ledger.sql",
+          "executionTime": 10
+        },
+        {
+          "category": "Repeatable",
+          "version": "",
+          "description": "05 04 02  save update ledger setting",
+          "type": "SQL",
+          "filepath": "D:\\office_work\\01-document\\database\\postgres\\05-function\\04-accounting\\R__05_04_02__save_update_ledger_setting.sql",
+          "executionTime": 8
+        },
+        {
+          "category": "Repeatable",
+          "version": "",
+          "description": "05 04 03  save update ledger subgroup",
+          "type": "SQL",
+          "filepath": "D:\\office_work\\01-document\\database\\postgres\\05-function\\04-accounting\\R__05_04_03__save_update_ledger_subgroup.sql",
+          "executionTime": 16
+        },
+        {
+          "category": "Repeatable",
+          "version": "",
+          "description": "06 00 00  trigger",
+          "type": "SQL",
+          "filepath": "D:\\office_work\\01-document\\database\\postgres\\06-trigger\\R__06_00_00__trigger.sql",
+          "executionTime": 7
+        },
+        {
+          "category": "Repeatable",
+          "version": "",
+          "description": "07 00 00  view",
+          "type": "SQL",
+          "filepath": "D:\\office_work\\01-document\\database\\postgres\\07-view\\R__07_00_00__view.sql",
+          "executionTime": 5
+        },
+        {
+          "category": "Repeatable",
+          "version": "",
+          "description": "08 00 00  airport",
+          "type": "SQL",
+          "filepath": "D:\\office_work\\01-document\\database\\postgres\\08-insert\\R__08_00_00__airport.sql",
+          "executionTime": 2232
+        },
+        {
+          "category": "Repeatable",
+          "version": "",
+          "description": "08 00 01  airline",
+          "type": "SQL",
+          "filepath": "D:\\office_work\\01-document\\database\\postgres\\08-insert\\R__08_00_01__airline.sql",
+          "executionTime": 1328
+        },
+        {
+          "category": "Repeatable",
+          "version": "",
+          "description": "08 00 03  country",
+          "type": "SQL",
+          "filepath": "D:\\office_work\\01-document\\database\\postgres\\08-insert\\R__08_00_03__country.sql",
+          "executionTime": 70
+        },
+        {
+          "category": "Repeatable",
+          "version": "",
+          "description": "08 00 04  division",
+          "type": "SQL",
+          "filepath": "D:\\office_work\\01-document\\database\\postgres\\08-insert\\R__08_00_04__division.sql",
+          "executionTime": 9
+        },
+        {
+          "category": "Repeatable",
+          "version": "",
+          "description": "08 00 05  district",
+          "type": "SQL",
+          "filepath": "D:\\office_work\\01-document\\database\\postgres\\08-insert\\R__08_00_05__district.sql",
+          "executionTime": 31
+        },
+        {
+          "category": "Repeatable",
+          "version": "",
+          "description": "08 00 06  thana",
+          "type": "SQL",
+          "filepath": "D:\\office_work\\01-document\\database\\postgres\\08-insert\\R__08_00_06__thana.sql",
+          "executionTime": 119
+        },
+        {
+          "category": "Repeatable",
+          "version": "",
+          "description": "08 00 07  postoffice",
+          "type": "SQL",
+          "filepath": "D:\\office_work\\01-document\\database\\postgres\\08-insert\\R__08_00_07__postoffice.sql",
+          "executionTime": 297
+        },
+        {
+          "category": "Repeatable",
+          "version": "",
+          "description": "08 00 08  bank",
+          "type": "SQL",
+          "filepath": "D:\\office_work\\01-document\\database\\postgres\\08-insert\\R__08_00_08__bank.sql",
+          "executionTime": 22
+        },
+        {
+          "category": "Repeatable",
+          "version": "",
+          "description": "08 00 09  function",
+          "type": "SQL",
+          "filepath": "D:\\office_work\\01-document\\database\\postgres\\08-insert\\R__08_00_09__function.sql",
+          "executionTime": 75
+        },
+        {
+          "category": "Repeatable",
+          "version": "",
+          "description": "09 00 00  meta",
+          "type": "SQL",
+          "filepath": "D:\\office_work\\01-document\\database\\postgres\\09-insert\\00-settings\\R__09_00_00__meta.sql",
+          "executionTime": 7
+        },
+        {
+          "category": "Repeatable",
+          "version": "",
+          "description": "09 00 03  base",
+          "type": "SQL",
+          "filepath": "D:\\office_work\\01-document\\database\\postgres\\09-insert\\00-settings\\R__09_00_03__base.sql",
+          "executionTime": 105
+        },
+        {
+          "category": "Repeatable",
+          "version": "",
+          "description": "09 00 04  passport",
+          "type": "SQL",
+          "filepath": "D:\\office_work\\01-document\\database\\postgres\\09-insert\\00-settings\\R__09_00_04__passport.sql",
+          "executionTime": 53
+        },
+        {
+          "category": "Repeatable",
+          "version": "",
+          "description": "09 01 00  meta",
+          "type": "SQL",
+          "filepath": "D:\\office_work\\01-document\\database\\postgres\\09-insert\\01-accounting\\R__09_01_00__meta.sql",
+          "executionTime": 44
+        },
+        {
+          "category": "Repeatable",
+          "version": "",
+          "description": "09 01 01  period",
+          "type": "SQL",
+          "filepath": "D:\\office_work\\01-document\\database\\postgres\\09-insert\\01-accounting\\R__09_01_01__period.sql",
+          "executionTime": 7
+        },
+        {
+          "category": "Repeatable",
+          "version": "",
+          "description": "09 01 02  settings",
+          "type": "SQL",
+          "filepath": "D:\\office_work\\01-document\\database\\postgres\\09-insert\\01-accounting\\R__09_01_02__settings.sql",
+          "executionTime": 12
+        },
+        {
+          "category": "Repeatable",
+          "version": "",
+          "description": "09 02 00  meta",
+          "type": "SQL",
+          "filepath": "D:\\office_work\\01-document\\database\\postgres\\09-insert\\02-inventory\\R__09_02_00__meta.sql",
+          "executionTime": 22
+        },
+        {
+          "category": "Repeatable",
+          "version": "",
+          "description": "09 02 01  base",
+          "type": "SQL",
+          "filepath": "D:\\office_work\\01-document\\database\\postgres\\09-insert\\02-inventory\\R__09_02_01__base.sql",
+          "executionTime": 11
+        },
+        {
+          "category": "Repeatable",
+          "version": "",
+          "description": "09 03 00  base",
+          "type": "SQL",
+          "filepath": "D:\\office_work\\01-document\\database\\postgres\\09-insert\\03-security\\R__09_03_00__base.sql",
+          "executionTime": 14
+        }
+      ],
+      "migrationsExecuted": 61,
+      "success": true,
+      "flywayVersion": "9.19.4",
+      "database": "gds",
+      "warnings": [],
+      "timestamp": "2023-07-11T11:46:47.278800100",
+      "operation": "migrate",
+      "exception": null,
+      "licenseFailed": false
+    }
+  ]
+}
