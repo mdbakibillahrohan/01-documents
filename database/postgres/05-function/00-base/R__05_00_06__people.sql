@@ -22,6 +22,7 @@ CREATE OR REPLACE FUNCTION "public".save_people(p_json json) RETURNS varchar(128
         v_vendor_credit_code            varchar(64) := '0101004';
         v_ac_payable_code               varchar(64) := '0201004';
         v_credit_note_code              varchar(64) := '0201005';
+        v_description                   varchar;
     BEGIN
         select get_company_by_login_id(p_json->>'created_by') into v_company;
         select uuid() INTO v_people_oid;
@@ -119,17 +120,26 @@ CREATE OR REPLACE FUNCTION "public".save_people(p_json json) RETURNS varchar(128
 
            	perform post_journal(v_journal_summary);
         END IF;
+        
+        v_description := concat('Add ', p_json->>'name', ' as people');
+
+        insert into activity_log (description, reference_id, reference_name, created_by, company_oid)
+		values (v_description, v_people_oid, 'People', v_company->>'login_id', v_company->>'oid');
+
         return v_people_oid;
     END;
 $save_people$ language plpgsql;
 
 -- select "public".save_people('{ "name": "Tanim with ledger", "email": "tanim1109135@gmail.com", "people_type": ["Customer","Employee"], "company_oid": "C_DEMO", "created_by": "admin", "designation_oid": "Des-GM","department_oid": "Dept-Fin", "receivable_balance": 500, "payable_balance": 0, "status": "Active" }');
 
+
+
 DROP FUNCTION IF EXISTS "public".update_people(p_json json);
 CREATE OR REPLACE FUNCTION "public".update_people(p_json json)
 RETURNS varchar(128) AS $update_people$
     DECLARE
         v_people_oid                    varchar(128) := p_json->>'oid';
+        v_company                       json;
         v_debit                         json;
         v_credit                        json;
         v_journal_list                  json;
@@ -139,9 +149,11 @@ RETURNS varchar(128) AS $update_people$
         v_adjustment_receivable         varchar(64) := 'AdjustmentReceivable';
         v_adjustment_payable            varchar(64) := 'AdjustmentPayable';
         v_people                        record;
+        v_description                   varchar;
     BEGIN
 
         select * into v_people from people where oid = v_people_oid;
+        select get_company_by_login_id(p_json->>'created_by') into v_company;
 
         update people set people_type = cast(p_json->>'people_type' as json),
             people_json = coalesce(cast(p_json->>'people_json' as json), cast('[]' as json)),
@@ -266,7 +278,11 @@ RETURNS varchar(128) AS $update_people$
             perform post_journal(v_journal_summary);
         END IF;
 
-        return v_people.oid;
+        v_description := 'Update people';
+
+        insert into activity_log (description, reference_id, reference_name, created_by, company_oid)
+		values (v_description, v_people_oid, 'People', p_json->>'created_by', v_company->>'oid');
+        return v_people_oid;
     END;
 $update_people$ language plpgsql;
 
