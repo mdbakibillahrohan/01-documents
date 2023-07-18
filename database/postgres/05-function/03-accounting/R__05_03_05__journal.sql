@@ -1,6 +1,56 @@
+set client_min_messages = 'warning';
+
+
+DROP FUNCTION IF EXISTS "public".get_new_ledger_balance(p_ledger_oid varchar(128), p_debited_amount float, p_credited_amount float);
+CREATE OR REPLACE FUNCTION "public".get_new_ledger_balance(p_ledger_oid varchar(128), p_debited_amount float default 0, p_credited_amount float default 0)
+RETURNS float AS $get_new_ledger_balance$
+    DECLARE
+        v_ledger_balance                    float;
+        v_debit_type                        varchar(16) := 'Debit';
+        v_credit_type                       varchar(16) := 'Credit';
+    BEGIN
+        select coalesce ((
+            select (
+                case when ledger_type = v_debit_type and p_debited_amount > p_credited_amount then (ledger_balance + p_debited_amount)
+                when ledger_type = v_debit_type and p_debited_amount < p_credited_amount then (ledger_balance - p_credited_amount)
+                when ledger_type = v_credit_type and p_debited_amount > p_credited_amount then (ledger_balance - p_debited_amount)
+                when ledger_type = v_credit_type and p_debited_amount < p_credited_amount then (ledger_balance + p_credited_amount)
+                else 0 end
+            )
+            from ledger
+            where oid = p_ledger_oid
+        ), 0) into v_ledger_balance;
+        return v_ledger_balance;
+    END;
+$get_new_ledger_balance$ language plpgsql;
+
+
+DROP FUNCTION IF EXISTS "public".get_new_subledger_balance(p_subledger_oid varchar(128), p_debited_amount float, p_credited_amount float);
+CREATE OR REPLACE FUNCTION "public".get_new_subledger_balance(p_subledger_oid varchar(128), p_debited_amount float default 0, p_credited_amount float default 0)
+RETURNS float AS $get_new_subledger_balance$
+    DECLARE
+        v_subledger_balance                 float;
+        v_debit_type                        varchar(16) := 'Debit';
+        v_credit_type                       varchar(16) := 'Credit';
+    BEGIN
+        select coalesce ((
+            select (
+                case when subledger_type = v_debit_type and p_debited_amount > p_credited_amount then (subledger_balance + p_debited_amount)
+                when subledger_type = v_debit_type and p_debited_amount < p_credited_amount then (subledger_balance - p_credited_amount)
+                when subledger_type = v_credit_type and p_debited_amount > p_credited_amount then (subledger_balance - p_debited_amount)
+                when subledger_type = v_credit_type and p_debited_amount < p_credited_amount then (subledger_balance + p_credited_amount)
+                else 0 end
+            )
+            from subledger
+            where oid = p_subledger_oid
+        ), 0) into v_subledger_balance;
+        return v_subledger_balance;
+    END;
+$get_new_subledger_balance$ language plpgsql;
+
+
+
 DROP FUNCTION IF EXISTS "public".post_journal(p_data json);
-
-
 CREATE OR REPLACE FUNCTION "public".post_journal(p_data json) RETURNS void AS $post_journal$
     DECLARE
         v_amount                                record;
@@ -58,4 +108,3 @@ CREATE OR REPLACE FUNCTION "public".post_journal(p_data json) RETURNS void AS $p
         END LOOP;
     END;
 $post_journal$ language plpgsql;
-
