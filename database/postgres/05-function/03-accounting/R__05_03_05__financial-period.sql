@@ -66,4 +66,40 @@ RETURNS void AS $close_financial_period$
     END;
 $close_financial_period$ language plpgsql;
 
+DROP IF EXISTS "public".save_update_financial_period(p_json json);
+CREATE OR REPLACE FUNCTION "public".save_update_financial_period(p_json json)
+RETURNS varchar(128) AS $save_update_financial_period$
+    DECLARE
+        v_company                           json;
+        v_action_type                       varchar(128);
+        v_oid                               varchar(128);
+        v_description                       text;
+    BEGIN
+        select get_company_by_login_id(p_json->>"created_by") into v_company;
+
+        if length(coalesce(p_json->>'oid', '')) = 0 then 
+            v_action_type := 'Save';
+            select uuid() into v_oid;
+            
+            insert into financial_period (oid, financial_period_name, period_type, 
+                start_date, end_date, company_oid, created_by )
+            values (v_oid, p_json->>'financial_period_name', p_json->>'period_type', p_json->>'start_date', p_json->>'end_date', v_company->>'oid', v_company->>'login_id' );
+        else
+            v_action_type := 'Update';
+            v_oid := p_json->>'oid';
+
+            update financial_period financial_period_name = 
+                p_json->>'financial_period_name', period_type = p_json->>'period_type',
+                start_date = p_json->>'start_date', end_date = p_json->>'end_date'
+            where oid = v_oid and company_oid = v_company->>'oid';
+        end if;
+
+        v_description := concat(v_action_type, ' ', p_json->>'financial_period_name', ' as financial period by ', v_company->>'login_id');
+        insert into activity_log (description, reference_id, reference_name, created_by, company_oid)
+        values (v_description, v_oid, 'financial period', v_company->>'login_id', v_company->>'oid');
+        
+        return v_oid;
+    END;
+$save_update_financial_period$ LANGUAGE plpgsql;
+
 -- PGPASSWORD='password' psql -h localhost -U postgres -d gds -f ./R__05_03_05__financial-period.sql
