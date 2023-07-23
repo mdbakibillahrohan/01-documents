@@ -28,11 +28,11 @@ CREATE OR REPLACE FUNCTION "public".save_people(p_json json) RETURNS varchar(128
         select uuid() INTO v_people_oid;
         select concat('SLGR-', to_char(clock_timestamp(), 'YYYYMMDDHH24MISSMS')) into v_sub_ledger_oid;
 
-        insert into people (oid, name, mobile_no, email, people_type, people_json, payable_balance,
+        insert into people (oid, name, mobile_no, email, address, people_type, people_json, payable_balance,
         receivable_balance, designation_oid, department_oid,
         image_path, company_oid, created_by, status)
         values (v_people_oid, p_json->>'name',  NULLIF(p_json->>'mobile_no', ''),
-            NULLIF(p_json->>'email', ''), cast(p_json->>'people_type' as json),
+            NULLIF(p_json->>'email', ''), NULLIF(p_json->>'address', ''), cast(p_json->>'people_type' as json),
             coalesce(cast(p_json->>'people_json' as json), cast('[]' as json)),
             coalesce((p_json->>'payable_balance')::float, 0),
             coalesce((p_json->>'receivable_balance')::float, 0),
