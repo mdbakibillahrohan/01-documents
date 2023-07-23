@@ -66,7 +66,7 @@ RETURNS void AS $close_financial_period$
     END;
 $close_financial_period$ language plpgsql;
 
-DROP IF EXISTS "public".save_update_financial_period(p_json json);
+DROP FUNCTION IF EXISTS "public".save_update_financial_period(p_json json);
 CREATE OR REPLACE FUNCTION "public".save_update_financial_period(p_json json)
 RETURNS varchar(128) AS $save_update_financial_period$
     DECLARE
@@ -88,7 +88,7 @@ RETURNS varchar(128) AS $save_update_financial_period$
             v_action_type := 'Update';
             v_oid := p_json->>'oid';
 
-            update financial_period financial_period_name = 
+            update financial_period set financial_period_name = 
                 p_json->>'financial_period_name', period_type = p_json->>'period_type',
                 start_date = p_json->>'start_date', end_date = p_json->>'end_date'
             where oid = v_oid and company_oid = v_company->>'oid';
@@ -102,4 +102,7 @@ RETURNS varchar(128) AS $save_update_financial_period$
     END;
 $save_update_financial_period$ LANGUAGE plpgsql;
 
--- PGPASSWORD='password' psql -h localhost -U postgres -d gds -f ./R__05_03_05__financial-period.sql
+
+-- save financial period 
+-- select "public".save_update_financial_period('{"financial_period_name": "2024-2025", "period_type": "Yearly", "start_date": "2023-07-23", "end_date":"2024-07-23", "created_by":"admin"}');
+-- PGPASSWORD='password' psql -h localhost -U postgres -d gds -f ./R__05_03_06__financial-period.sql
