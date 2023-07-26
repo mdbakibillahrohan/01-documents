@@ -42,6 +42,7 @@ RETURNS float AS $get_new_subledger_balance$
             from subledger 
             where oid = p_subledger_oid
         ), 0) into v_subledger_balance;
+        return v_subledger_balance;
     END;
 $get_new_subledger_balance$ language plpgsql;
 
@@ -51,6 +52,7 @@ RETURNS void AS $post_journal$
     DECLARE
         v_amount                        record;
         v_journal                       json;
+        v_current_date                  date;
         v_ledger_balance                float;
         v_subledger_balance             float;
         v_debited_amount                float;
@@ -64,8 +66,9 @@ RETURNS void AS $post_journal$
     BEGIN
         select get_company_by_login_id(p_data->>'created_by') into v_company;
         select get_financial_period_by_company_oid(v_company->>'oid') into v_fp;
+        select cast(now() as date) into v_current_date;
 
-        select sum((t->>'debited_amount')::float) as debited_amount, sum((t->>'credited_amount')::float) as credited_amount 
+        select sum((t->> 'debited_amount')::float) as debited_amount, sum((t->> 'credited_amount')::float) as credited_amount 
         into v_amount 
         from json_array_elements((p_data->>'journal_list')::json) t;
 
@@ -77,11 +80,11 @@ RETURNS void AS $post_journal$
         select uuid() into v_js_oid;
 
         insert into journal_summary (oid, journal_date, journal_type, journal_manner, description, amount, reference_no,   financial_period_oid, company_oid, created_by)
-        values (v_js_oid, current_data, nullif(p_data->>'journal_type', ''), coalesce(p_data->>'journal_manner', 'Auto'),
+        values (v_js_oid, v_current_date, nullif(p_data->>'journal_type', ''), coalesce(p_data->>'journal_manner', 'Auto'),
         nullif(p_data->>'description', ''), v_amount.credited_amount, 
         nullif(p_data->>'reference_no', ''), v_fp->>'oid', v_company->>'oid', p_data->>'created_by');
 
-        FOR v_journal in select * from json_array_elements((p_data->>'journal_list')::json) Loop 
+        FOR v_journal in select * from json_array_elements((p_data->>'journal_list')::json) LOOP 
                 v_counter := v_counter + 1;
                 v_debited_amount := coalesce((v_journal->>'debited_amount')::float, 0);
                 v_credited_amount := coalesce((v_journal->>'credited_amount')::float, 0);
@@ -107,6 +110,6 @@ RETURNS void AS $post_journal$
 $post_journal$ language plpgsql;
 
 --save journal
--- select "public".post_journal('{"description": "", "amount": "12", "reference_no":  '11', "journal_list": [{"ledger_oid": "", "description": "", "subLedger_oid": "", "debited_amount": "", "credited_amount": "" }, {"ledger_oid": "", "description": "", "subLedger_oid": "", "debited_amount": "", "credited_amount": "" }] }');
+-- select "public".post_journal('{"description": "", "amount": "10", "reference_no":  "11", "created_by": "admin", "journal_list": [{"ledger_oid": "lg-demo-0101001", "description": "", "subLedger_oid": "", "debited_amount": "10", "credited_amount": "0" }, {"ledger_oid": "lg-demo-0101001", "description": "", "subLedger_oid": "", "debited_amount": "0", "credited_amount": "10" }] }');
 
 --PGPASSWORD='password' psql -h localhost -U postgres -d gds -f ./R__05_03_05__journal.sql

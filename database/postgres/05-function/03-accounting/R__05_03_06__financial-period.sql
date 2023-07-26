@@ -46,8 +46,13 @@ RETURNS void AS $close_financial_period$
 
         insert into ledger_history (oid, ledger_code, ledger_name, mnemonic, ledger_type, balance_sheet_item, initial_balance,
         ledger_balance, status, ledger_subgroup_oid, financial_period_oid, company_oid, created_by, parent_oid)
-        select uuid(), ledger_code, ledger_name, mnemonic, ledger_type, balance_sheet_item, initial_balance, ledger_balance, status, ledger_subgroup_oid, p_json->>'oid', company_oid, v_company->>'login_id', oid 
+        select uuid(), ledger_code, ledger_name, mnemonic, ledger_type, balance_sheet_item, initial_balance, ledger_balance, status, ledger_subgroup_oid, p_json->>'oid', company_oid, p_json->>'created_by', oid 
         from ledger
+        where company_oid = v_company->>'oid';
+
+        insert into subledger_history (oid, ledger_key, subledger_code, subledger_name, subledger_type, balance_sheet_item, initial_balance, subledger_balance, status, reference_oid, ledger_oid, financial_period_oid, company_oid, created_by, parent_oid)
+        select uuid(), ledger_key, subledger_code, subledger_name, subledger_type, balance_sheet_item, initial_balance, subledger_balance, status, reference_oid, ledger_oid, p_json->>'oid', company_oid, v_company->>'login_id', oid 
+        from subledger
         where company_oid = v_company->>'oid';
 
         update subledger_history
@@ -75,7 +80,7 @@ RETURNS varchar(128) AS $save_update_financial_period$
         v_oid                               varchar(128);
         v_description                       text;
     BEGIN
-        select get_company_by_login_id(p_json->>"created_by") into v_company;
+        select get_company_by_login_id(p_json->>'created_by') into v_company;
 
         if length(coalesce(p_json->>'oid', '')) = 0 then 
             v_action_type := 'Save';
@@ -83,14 +88,14 @@ RETURNS varchar(128) AS $save_update_financial_period$
             
             insert into financial_period (oid, financial_period_name, period_type, 
                 start_date, end_date, company_oid, created_by )
-            values (v_oid, p_json->>'financial_period_name', p_json->>'period_type', p_json->>'start_date', p_json->>'end_date', v_company->>'oid', v_company->>'login_id' );
+            values (v_oid, p_json->>'financial_period_name', p_json->>'period_type', to_date(p_json->>'start_date', 'YYYY-MM-DD'), to_date(p_json->>'end_date', 'YYYY-MM-DD'), v_company->>'oid', v_company->>'login_id' );
         else
             v_action_type := 'Update';
             v_oid := p_json->>'oid';
 
             update financial_period set financial_period_name = 
                 p_json->>'financial_period_name', period_type = p_json->>'period_type',
-                start_date = p_json->>'start_date', end_date = p_json->>'end_date'
+                start_date = to_date(p_json->>'start_date', 'YYYY-MM-DD'), end_date = to_date(p_json->>'end_date', 'YYYY-MM-DD')
             where oid = v_oid and company_oid = v_company->>'oid';
         end if;
 
@@ -102,7 +107,9 @@ RETURNS varchar(128) AS $save_update_financial_period$
     END;
 $save_update_financial_period$ LANGUAGE plpgsql;
 
-
+-- select "public".get_financial_period_by_company_oid('C-DEMO');
+-- select "public".close_financial_period('{ "oid": "fp-2023-2024", "created_by": "admin" }');
 -- save financial period 
--- select "public".save_update_financial_period('{"financial_period_name": "2024-2025", "period_type": "Yearly", "start_date": "2023-07-23", "end_date":"2024-07-23", "created_by":"admin"}');
+-- select "public".save_update_financial_period('{"financial_period_name": "2024-2025", "period_type": "Yearly", "start_date": "2024-07-23", "end_date":"2025-07-23", "created_by":"admin"}');
+
 -- PGPASSWORD='password' psql -h localhost -U postgres -d gds -f ./R__05_03_06__financial-period.sql
